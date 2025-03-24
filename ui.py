@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 class SimulatorUI:
     def __init__(self, run_simulation):
@@ -20,6 +21,11 @@ class SimulatorUI:
         tk.Radiobutton(self.window, text="FIFO", variable=self.algo_var, value="FIFO").pack()
         tk.Radiobutton(self.window, text="LRU", variable=self.algo_var, value="LRU").pack()
         tk.Radiobutton(self.window, text="Optimal", variable=self.algo_var, value="Optimal").pack()
+
+        tk.Button(self.window, text="Simulate", command=self.simulate).pack(pady=10)
+
+    def simulate(self):
+        messagebox.showinfo("Info", "Simulation not implemented yet!")
 
     def run(self):
         self.window.mainloop()
