@@ -15,5 +15,11 @@ class SimulatorUI:
         self.frame_entry = tk.Entry(self.window)
         self.frame_entry.pack()
 
+        self.algo_var = tk.StringVar(value="FIFO")
+        tk.Label(self.window, text="Select Algorithm:").pack(pady=5)
+        tk.Radiobutton(self.window, text="FIFO", variable=self.algo_var, value="FIFO").pack()
+        tk.Radiobutton(self.window, text="LRU", variable=self.algo_var, value="LRU").pack()
+        tk.Radiobutton(self.window, text="Optimal", variable=self.algo_var, value="Optimal").pack()
+
     def run(self):
         self.window.mainloop()
