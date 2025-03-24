@@ -25,7 +25,13 @@ class SimulatorUI:
         tk.Button(self.window, text="Simulate", command=self.simulate).pack(pady=10)
 
     def simulate(self):
-        messagebox.showinfo("Info", "Simulation not implemented yet!")
+        try:
+            pages = [int(x) for x in self.page_entry.get().split(",")]
+            frames = int(self.frame_entry.get())
+            faults, steps = self.run_simulation(pages, frames, self.algo_var.get())
+            messagebox.showinfo("Result", f"{self.algo_var.get()} Page Faults: {faults}\nSteps: {steps}")
+        except ValueError:
+            messagebox.showerror("Error", "Invalid input! Use numbers and commas.")
 
     def run(self):
         self.window.mainloop()
