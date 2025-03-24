@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import matplotlib.pyplot as plt
 
 class SimulatorUI:
     def __init__(self, run_simulation):
@@ -23,15 +24,31 @@ class SimulatorUI:
         tk.Radiobutton(self.window, text="Optimal", variable=self.algo_var, value="Optimal").pack()
 
         tk.Button(self.window, text="Simulate", command=self.simulate).pack(pady=10)
+        self.result_label = tk.Label(self.window, text="Page Faults: N/A")
+        self.result_label.pack(pady=5)
 
     def simulate(self):
         try:
             pages = [int(x) for x in self.page_entry.get().split(",")]
             frames = int(self.frame_entry.get())
+            fifo_faults, fifo_steps = self.run_simulation(pages, frames, "FIFO")
+            lru_faults, lru_steps = self.run_simulation(pages, frames, "LRU")
+            opt_faults, opt_steps = self.run_simulation(pages, frames, "Optimal")
             faults, steps = self.run_simulation(pages, frames, self.algo_var.get())
             messagebox.showinfo("Result", f"{self.algo_var.get()} Page Faults: {faults}\nSteps: {steps}")
+            self.result_label.config(text=f"Page Faults: {faults}")
+            self.plot_results(fifo_faults, lru_faults, opt_faults)
         except ValueError:
             messagebox.showerror("Error", "Invalid input! Use numbers and commas.")
+
+    def plot_results(self, fifo_faults, lru_faults, opt_faults):
+        algorithms = ["FIFO", "LRU", "Optimal"]
+        faults = [fifo_faults, lru_faults, opt_faults]
+        plt.bar(algorithms, faults, color=["blue", "green", "red"])
+        plt.title("Page Faults Comparison")
+        plt.xlabel("Algorithm")
+        plt.ylabel("Number of Page Faults")
+        plt.show()
 
     def run(self):
         self.window.mainloop()
