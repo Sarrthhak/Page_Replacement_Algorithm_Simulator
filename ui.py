@@ -31,6 +31,9 @@ class SimulatorUI:
         try:
             pages = [int(x) for x in self.page_entry.get().split(",")]
             frames = int(self.frame_entry.get())
+            if frames < 1 or frames >10:
+                messagebox.showerror("Error", "Frames must be between 1 and 10!")
+                return
             fifo_faults, fifo_steps = self.run_simulation(pages, frames, "FIFO")
             lru_faults, lru_steps = self.run_simulation(pages, frames, "LRU")
             opt_faults, opt_steps = self.run_simulation(pages, frames, "Optimal")
