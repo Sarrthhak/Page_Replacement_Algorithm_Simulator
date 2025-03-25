@@ -6,7 +6,8 @@ class SimulatorUI:
     def __init__(self, run_simulation):
         self.window = tk.Tk()
         self.window.title("Page Replacement Simulator")
-        self.window.geometry("400x300")
+        self.window.geometry("500x350")
+        self.window.resizable(True,True)
         self.run_simulation = run_simulation
 
         tk.Label(self.window, text="Enter Page Reference String (e.g., 1,2,3):").pack(pady=5)
@@ -24,6 +25,7 @@ class SimulatorUI:
         tk.Radiobutton(self.window, text="Optimal", variable=self.algo_var, value="Optimal").pack()
 
         tk.Button(self.window, text="Simulate", command=self.simulate).pack(pady=10)
+        tk.Button(self.window,text="Clear",command=self.clear).pack(pady=5)
         self.result_label = tk.Label(self.window, text="Page Faults: N/A")
         self.result_label.pack(pady=5)
 
