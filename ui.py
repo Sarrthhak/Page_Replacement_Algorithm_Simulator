@@ -53,7 +53,7 @@ class SimulatorUI:
         plt.ylabel("Number of Page Faults")
         plt.grid(True)
         plt.show()
-    def clear(self)
+    def clear(self):
         self.page_entry.delete(0, tk.END)
         self.frame_entry.delete(0,tk.END)
         self.result_label.config(text="Page Faults: N/A")
