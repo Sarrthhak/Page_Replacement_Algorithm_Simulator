@@ -51,6 +51,7 @@ class SimulatorUI:
         plt.title("Page Faults Comparison")
         plt.xlabel("Algorithm")
         plt.ylabel("Number of Page Faults")
+        plt.grid(True)
         plt.show()
 
     def run(self):
