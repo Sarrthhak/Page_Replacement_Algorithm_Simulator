@@ -142,13 +142,50 @@ if run_clicked:
 
         st.pyplot(fig)
 
-        # Find algorithms with minimum and maximum page faults
+        # Finding algorithms with minimum and maximum page faults
         min_faults = min(faults)
         max_faults = max(faults)
-
+        
         best_algorithms = [algorithms[i] for i, fault in enumerate(faults) if fault == min_faults]
         worst_algorithms = [algorithms[i] for i, fault in enumerate(faults) if fault == max_faults]
-
+        
         # Format the insights properly
         best_algorithm_str = ", ".join(best_algorithms)
         worst_algorithm_str = ", ".join(worst_algorithms)
+
+        st.write("### Insights from the Simulation")
+        # Highlight the best and worst algorithms
+        st.write(f"**Best Algorithm(s):** {best_algorithm_str} with the least page faults.")
+        st.write(f"**Worst Algorithm(s):** {worst_algorithm_str} with the highest page faults.")
+        
+        if min_faults == faults[0]:
+            st.write(
+                "**FIFO Insight:** FIFO works well when the page reference pattern has fewer repeated pages and the order of page usage is predictable. "
+                "However, it may cause Belady's anomaly, where adding more frames increases page faults."
+            )
+        if min_faults == faults[1]:
+            st.write(
+                "**LRU Insight:** LRU performs best when the most recently used pages are likely to be used again soon. "
+                "It's more efficient for workloads where recent usage predicts future usage but requires tracking page usage history."
+            )
+        if min_faults == faults[2]:
+            st.write(
+                "**Optimal Insight:** Optimal provides the least number of page faults since it replaces the page that won’t be used for the longest period. "
+                "However, it's unrealistic for real-world scenarios as future requests are unknown."
+            )
+        
+        if max_faults == faults[0]:
+            st.write(
+                "**FIFO Limitation:** FIFO can be inefficient in situations where recently used pages are accessed repeatedly, "
+                "as it doesn’t consider the frequency or recency of use."
+            )
+        if max_faults == faults[1]:
+            st.write(
+                "**LRU Limitation:** LRU can suffer from high overhead due to frequent updates of the page usage history, "
+                "especially when the page reference string is long."
+            )
+        if max_faults == faults[2]:
+            st.write(
+                "**Optimal Limitation:** Optimal is theoretical and impractical because it requires perfect knowledge of future requests, "
+                "which is not possible in real-world systems."
+            )
