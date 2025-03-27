@@ -160,17 +160,17 @@ if run_clicked:
         
         if min_faults == faults[0]:
             st.write(
-                "**FIFO Insight:** FIFO works well when the page reference pattern has fewer repeated pages and the order of page usage is predictable. "
+                "**Why FIFO is preferred:** FIFO works well when the page reference pattern has fewer repeated pages and the order of page usage is predictable. "
                 "However, it may cause Belady's anomaly, where adding more frames increases page faults."
             )
         if min_faults == faults[1]:
             st.write(
-                "**LRU Insight:** LRU performs best when the most recently used pages are likely to be used again soon. "
+                "**Why LRU is preferred:** LRU performs best when the most recently used pages are likely to be used again soon. "
                 "It's more efficient for workloads where recent usage predicts future usage but requires tracking page usage history."
             )
         if min_faults == faults[2]:
             st.write(
-                "**Optimal Insight:** Optimal provides the least number of page faults since it replaces the page that won’t be used for the longest period. "
+                "**Why Optimal is preferred:** Optimal provides the least number of page faults since it replaces the page that won’t be used for the longest period. "
                 "However, it's unrealistic for real-world scenarios as future requests are unknown."
             )
         
