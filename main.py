@@ -1,5 +1,5 @@
 import streamlit as st
- import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
  
  # FIFO Algorithm
  def fifo(pages, frames):
