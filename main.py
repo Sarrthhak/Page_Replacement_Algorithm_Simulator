@@ -11,10 +11,10 @@ def fifo(pages, frames):
             if len(memory) < frames:
                 memory.append(page)
             else:
-                memory.pop(0)
+                memory.pop(0)  # Remove the oldest page
                 memory.append(page)
-            page_faults += 1
-        memory_states.append(memory[:])
+            page_faults += 1  # Increment page fault when page is not in memory
+        memory_states.append(memory[:])  # Store the state of memory after each page reference
     
     return page_faults, memory_states
 
@@ -22,19 +22,20 @@ def fifo(pages, frames):
 def lru(pages, frames):
     memory, page_faults = [], 0
     memory_states = []
-    page_indices = {}
+    page_indices = {}  # Dictionary to track the last usage of each page
     
     for i, page in enumerate(pages):
         if page not in memory:
             if len(memory) < frames:
                 memory.append(page)
             else:
-                lru_page = min(memory, key=lambda p: page_indices[p])
+                # Find the least recently used page and replace it
+                lru_page = min(memory, key=lambda p: page_indices.get(p, -1))
                 memory.remove(lru_page)
                 memory.append(page)
-            page_faults += 1
-        page_indices[page] = i
-        memory_states.append(memory[:])
+            page_faults += 1  # Increment page fault when page is not in memory
+        page_indices[page] = i  # Update the last used index for the page
+        memory_states.append(memory[:])  # Store the state of memory after each page reference
     
     return page_faults, memory_states
 
@@ -53,12 +54,12 @@ def optimal(pages, frames):
                     if mem_page in pages[i:]:
                         future_indices.append(pages[i:].index(mem_page))
                     else:
-                        future_indices.append(float('inf'))
+                        future_indices.append(float('inf'))  # If the page won't appear again, mark it as infinity
                 
-                replace_index = future_indices.index(max(future_indices))
+                replace_index = future_indices.index(max(future_indices))  # Replace the page that will not be used for the longest period
                 memory[replace_index] = page
-            page_faults += 1
-        memory_states.append(memory[:])
+            page_faults += 1  # Increment page fault when page is not in memory
+        memory_states.append(memory[:])  # Store the state of memory after each page reference
     
     return page_faults, memory_states
 
