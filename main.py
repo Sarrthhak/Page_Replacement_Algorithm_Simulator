@@ -56,8 +56,6 @@ def optimal(pages, frames):
 
 # UI Configuration
 st.set_page_config(layout="centered")
-
-# Input Section
 st.title("Page Replacement Algorithm Simulator")
 
 algorithm = st.selectbox("Select algorithm", ["FIFO", "LRU", "Optimal"])
@@ -97,22 +95,28 @@ if st.button("Generate"):
     with col2:
         st.metric("Hits", hit_count)
     
-    st.write("**Hit/Miss Ratio:**")
-    st.write(f"{miss_rate:.1f}% Misses ({page_faults})")
-    
     # Battery-like Visualization
-    def battery_bar(percentage, label, color):
-        fig, ax = plt.subplots(figsize=(4, 0.5))
-        ax.barh(0, percentage, color=color, height=0.4)
+    st.subheader("Battery-style Hit/Miss Visualization")
+
+    def battery_bar(percentage, label):
+        fig, ax = plt.subplots(figsize=(4, 1.2))
+        color = (
+            "#ff1a1a" if percentage <= 10 else
+            "#ff9900" if percentage <= 30 else
+            "#ffff33" if percentage <= 60 else
+            "#66ff66"
+        )
+        ax.barh([0], percentage, color=color, height=0.5)
         ax.set_xlim(0, 100)
-        ax.set_yticks([])
         ax.set_xticks([0, 25, 50, 75, 100])
         ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"])
-        ax.set_title(label)
+        ax.set_yticks([])
+        ax.set_title(f"{label}: {percentage:.1f}%", fontsize=10)
+        ax.grid(True, axis='x', linestyle='--', alpha=0.5)
         st.pyplot(fig)
-    
-    battery_bar(hit_rate, "Hit Rate", "green")
-    battery_bar(miss_rate, "Miss Rate", "red")
+
+    battery_bar(hit_rate, "Hit Rate")
+    battery_bar(miss_rate, "Miss Rate")
     
     # Memory States Table
     st.markdown("---")
@@ -138,6 +142,7 @@ if st.button("Generate"):
     faults = [fifo(pages, frames)[0], lru(pages, frames)[0], optimal(pages, frames)[0]]
     ax.bar(algorithms, faults, color=["#4C72B0", "#55A868", "#C44E52"])
     ax.set_ylabel("Page Faults")
+    ax.set_title("Page Faults by Algorithm")
     ax.grid(True, linestyle='--', alpha=0.6)
     st.pyplot(fig)
     
