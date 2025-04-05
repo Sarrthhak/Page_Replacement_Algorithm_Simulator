@@ -118,13 +118,10 @@ if st.button("Generate"):
     state_data = []
     for i, state in enumerate(memory_states):
         fault = "✔️" if pages[i] not in (memory_states[i-1] if i > 0 else []) else "➖"
-        row = {
-            "Step": i+1,
-            "Frame 1": state[0] if len(state) > 0 else "-",
-            "Frame 2": state[1] if len(state) > 1 else "-",
-            "Frame 3": state[2] if len(state) > 2 else "-",
-            "Page Fault": fault
-        }
+        row = {"Step": i + 1}
+        for f in range(frames):
+            row[f"Frame {f + 1}"] = state[f] if f < len(state) else "-"
+        row["Page Fault"] = fault
         state_data.append(row)
     st.table(state_data)
     
