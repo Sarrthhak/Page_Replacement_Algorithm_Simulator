@@ -117,16 +117,12 @@ if st.button("Generate"):
     st.header("Memory State Changes")
     state_data = []
     for i, state in enumerate(memory_states):
-        row = {"Step": i + 1}
-        for j in range(frames):
-            row[f"Frame {j+1}"] = state[j] if j < len(state) else "-"
         fault = "✔️" if pages[i] not in (memory_states[i-1] if i > 0 else []) else "➖"
+        row = {"Step": i + 1}
+        for f in range(frames):
+            row[f"Frame {f + 1}"] = state[f] if f < len(state) else "-"
         row["Page Fault"] = fault
         state_data.append(row)
-    
-    df = pd.DataFrame(state_data)
-    # Optional: Convert numbers to strings to help center them in st.table
-    df = df.astype(str)
     st.table(df)
     
     # Algorithm Comparison
