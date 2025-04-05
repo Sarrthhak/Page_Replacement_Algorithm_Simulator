@@ -95,29 +95,23 @@ if st.button("Generate"):
     with col2:
         st.metric("Hits", hit_count)
     
-    # Battery-like Visualization
-    st.subheader("Battery-style Hit/Miss Visualization")
-
-    def battery_bar(percentage, label):
-        fig, ax = plt.subplots(figsize=(4, 1.2))
-        color = (
-            "#ff1a1a" if percentage <= 10 else
-            "#ff9900" if percentage <= 30 else
-            "#ffff33" if percentage <= 60 else
-            "#66ff66"
-        )
-        ax.barh([0], percentage, color=color, height=0.5)
-        ax.set_xlim(0, 100)
-        ax.set_xticks([0, 25, 50, 75, 100])
-        ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"])
-        ax.set_yticks([])
-        ax.set_title(f"{label}: {percentage:.1f}%", fontsize=10)
-        ax.grid(True, axis='x', linestyle='--', alpha=0.5)
-        st.pyplot(fig)
-
-    battery_bar(hit_rate, "Hit Rate")
-    battery_bar(miss_rate, "Miss Rate")
+    # Battery-like Visualization (Replaced with HTML Bar)
+    st.subheader("Hit/Miss Visualization")
     
+    st.markdown(
+        f"""
+        <div style="width: 100%; height: 30px; background-color: #eee; border-radius: 8px; display: flex; overflow: hidden; margin-top: 10px;">
+            <div style="width: {miss_rate}%; background-color: #e74c3c;"></div>
+            <div style="width: {hit_rate}%; background-color: #2ecc71;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px; margin-top: 5px;">
+            <span>🔴 Miss Rate ({miss_rate:.1f}%)</span>
+            <span>🟢 Hit Rate ({hit_rate:.1f}%)</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+        
     # Memory States Table
     st.markdown("---")
     st.header("Memory State Changes")
