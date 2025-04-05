@@ -75,7 +75,12 @@ frames = st.number_input("Enter number of frames", min_value=1, max_value=10, va
 ref_string = st.text_input("Enter reference string (separated by spaces)", "6 7 8 9 6 7 1 6 7 8 9 1")
 
 if st.button("Generate"):
-    pages = list(map(int, ref_string.split()))
+    try:
+        pages = list(map(int, ref_string.strip().split()))
+    except:
+        st.error("🚫 Invalid input! Please enter space-separated integers only.")
+        st.stop()
+
 
     # Display Computation Outline
     st.markdown("---")
@@ -165,4 +170,4 @@ if st.button("Generate"):
         st.info("FIFO is simple and easy to implement, but may suffer from Belady’s anomaly in some cases.")
 
 st.markdown("---")
-st.caption("Made by Sarthak Pipladiya, Abhishek Kumar, Himanshu Gobari")
+st.caption("Made by Sarthak Pipladiya, Himanshu Gobari and Abhishek Kumar")
