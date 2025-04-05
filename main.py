@@ -1,6 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 # Algorithm Implementations
 def fifo(pages, frames):
@@ -95,9 +96,8 @@ if st.button("Generate"):
     with col2:
         st.metric("Hits", hit_count)
     
-    # Battery-like Visualization (Replaced with HTML Bar)
+    # Battery-like Visualization (HTML Bar)
     st.subheader("Hit/Miss Visualization")
-    
     st.markdown(
         f"""
         <div style="width: 100%; height: 30px; background-color: #eee; border-radius: 8px; display: flex; overflow: hidden; margin-top: 10px;">
@@ -123,6 +123,8 @@ if st.button("Generate"):
             row[f"Frame {f + 1}"] = state[f] if f < len(state) else "-"
         row["Page Fault"] = fault
         state_data.append(row)
+    
+    df = pd.DataFrame(state_data)
     st.table(df)
     
     # Algorithm Comparison
