@@ -111,7 +111,7 @@ if st.button("Generate"):
     with col2:
         st.metric("Hits", hit_count)
 
-    st.subheader("📈 Hit/Miss Visualization")
+    st.subheader("📈 Hit/Miss Ratio")
     st.markdown(
         f"""
         <div style="width: 100%; height: 30px; background-color: #eee; border-radius: 8px; display: flex; overflow: hidden; margin-top: 10px;">
@@ -170,4 +170,4 @@ if st.button("Generate"):
         st.info("FIFO is simple and easy to implement, but may suffer from Belady’s anomaly in some cases.")
 
 st.markdown("---")
-st.caption("Made with ❤️ by Sarthak Pipladiya")
+st.caption("Made by Sarthak Pipladiya, Himanshu Gobari and Abhishek Kumar")
