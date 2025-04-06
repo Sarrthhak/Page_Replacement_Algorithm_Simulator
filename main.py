@@ -163,11 +163,11 @@ if st.button("Generate"):
     st.markdown("---")
     st.subheader("💡 Insights")
     if algorithm == "Optimal":
-        st.info("Optimal provides the theoretical minimum page faults by replacing the page that won’t be used for the longest time.")
+        st.info("Optimal replaces the page that won’t be used for the longest time in the future. It gives the minimum possible number of page faults. It’s used as a benchmark because it’s not practical in real systems since future references are unknown.")
     elif algorithm == "LRU":
-        st.info("LRU uses recent history to decide what to replace. It works well in programs with temporal locality.")
+        st.info("LRU replaces the page that hasn’t been used for the longest time, assuming that pages used recently are more likely to be used again soon. It generally gives better performance than FIFO in most real-world scenarios.")
     else:
-        st.info("FIFO is simple and easy to implement, but may suffer from Belady’s anomaly in some cases.")
+        st.info("FIFO replaces the oldest loaded page first, regardless of how often or recently it was used. This can sometimes lead to more page faults even if a page is still actively needed. It's simple but can perform poorly in some scenarios, known as Belady's Anomaly.")
 
 st.markdown("---")
 st.caption("Made by Sarthak Pipladiya, Himanshu Gobari and Abhishek Kumar")
