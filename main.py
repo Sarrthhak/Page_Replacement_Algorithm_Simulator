@@ -68,7 +68,7 @@ def optimal(pages, frames):
 
 # UI Configuration
 st.set_page_config(layout="centered")
-st.title("📄 Page Replacement Algorithm Simulator")
+st.title("Page Replacement Algorithm Simulator")
 
 algorithm = st.selectbox("Select Algorithm", ["FIFO", "LRU", "Optimal"])
 frames = st.number_input("Enter number of frames", min_value=1, max_value=10, value=3)
